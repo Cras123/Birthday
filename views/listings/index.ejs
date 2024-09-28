@@ -1,0 +1,35 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+  <div class="container mt-4">
+    <h3>All Birthday Listings</h3>
+
+    <!-- Row for birthday listings, responsive for different screen sizes -->
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
+      <% for(let listing of allListings) { %>
+      <div class="col">
+        <a
+          href="/listings/<%= listing._id %>"
+          class="listing-link text-decoration-none text-dark"
+        >
+          <div class="card" style="width: 100%; min-height: 26rem">
+            <!-- Show uploaded image or a fallback image if not available -->
+            <img
+              src="<%= listing.image && listing.image.url ? listing.image.url : '/images/default-image.jpg' %>"
+              class="card-img-top"
+              alt="listing-image"
+              style="height: 15rem; object-fit: cover"
+            />
+            <div class="card-body">
+              <h5 class="card-title"><%= listing.title %></h5>
+              <p class="card-text">
+                Price: ₹<%= (listing.money || 0).toLocaleString("en-IN") %><br />
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</body>

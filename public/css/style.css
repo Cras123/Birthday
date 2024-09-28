@@ -1,0 +1,259 @@
+/* Navbar */
+.navbar {
+  background-color: #f8f9fa; /* Light background */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  color: #333;
+}
+
+.navbar-brand {
+  color: #ff69b4; /* Pink color for brand */
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.navbar-brand .birthday-icon {
+  margin-right: 8px;
+  color: #ff69b4; /* Pink color for the cake icon */
+}
+
+.navbar-nav .nav-link {
+  color: #333; /* Darker links */
+  margin-left: 15px;
+  font-size: 1rem;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ff69b4; /* Pink color on hover */
+  transition: color 0.3s ease;
+}
+
+/* Navbar Toggler for mobile */
+.navbar-toggler {
+  border-color: #ff69b4; /* Pink border on mobile toggle */
+}
+
+.navbar-toggler-icon {
+  background-color: #ff69b4; /* Pink toggle icon */
+}
+
+/* Sticky Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+/* Mobile alignment */
+@media (max-width: 768px) {
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .navbar-nav .nav-link {
+    margin-left: 0;
+    margin-bottom: 10px; /* Space between links on mobile */
+  }
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full viewport height */
+}
+
+/* The content area will take up the remaining space */
+.wrapper .content {
+  flex: 1;
+}
+
+/* Footer Styling */
+footer {
+  background-color: #333; /* Dark background */
+  color: #fff; /* White text */
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  margin-top: auto;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-socials {
+  margin-bottom: 15px;
+}
+
+.footer-socials a {
+  color: #ff69b4; /* Pink color for social icons */
+  font-size: 1.8rem; /* Larger icon size */
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-socials a:hover {
+  color: #ffd700; /* Gold color on hover */
+  transition: color 0.3s ease;
+}
+
+.footer-brand {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 1rem;
+}
+
+.footer-links a:hover {
+  color: #ff69b4;
+  transition: color 0.3s ease;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-links a {
+    display: block;
+    margin: 10px 0;
+  }
+}
+
+/* Hero Section */
+.hero {
+  background: url("/images/image.png") no-repeat center center/cover;
+  height: 70vh; /* Adjust the height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: white;
+  text-align: center;
+}
+
+/* Dark overlay for better text contrast */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  z-index: 0;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 1;
+  margin-top: 0; /* Move the text up to center it */
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+.hero-btn {
+  padding: 10px 25px;
+  font-size: 1.2rem;
+}
+
+/* Happy Gestures Section */
+.happy-gestures h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.gesture-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.gesture-img:hover {
+  transform: scale(1.05);
+}
+
+.happy-gestures h4 {
+  font-weight: bold;
+  color: #ff69b4;
+}
+
+.happy-gestures p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Call to Action */
+.call-to-action {
+  background-color: #f8f9fa;
+  padding: 50px 0;
+}
+
+.call-to-action h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.call-to-action p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.call-to-action .btn {
+  padding: 10px 25px;
+  font-size: 1.2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero {
+    height: 60vh;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .hero-btn {
+    font-size: 1rem;
+  }
+}

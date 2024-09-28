@@ -1,0 +1,47 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-3">
+  <div class="col-8 offset-3">
+    <h3>Listing Details</h3>
+  </div>
+  <div class="card col-6 offset-3 show-card">
+    <img
+      src="<%= listing.image.url %>"
+      class="card-img-top show-img"
+      alt="listing-image"
+      style="max-width: 50%; height: auto; object-fit: cover"
+      <!--
+      Adjust
+      size
+      --
+    />
+
+    />
+    <div class="card-body">
+      <p class="card-text">
+        <b><%= listing.title %></b> <br />
+        <br />
+        <%= listing.description %> <br />
+        <br />
+        Price: &dollar;<%= (listing.money || 0).toLocaleString("en-IN") %>
+        <br />
+        <br />
+        Country: <%= listing.country %> <br />
+        <br />
+        Contact: <%= listing.contact_me %> <br />
+        <br />
+        By: <%= listing.By %> <br />
+        <br />
+      </p>
+    </div>
+  </div>
+
+  <br />
+</div>
+<div class="btns">
+  <a
+    href="/listings/<%= listing._id %>/edit"
+    class="btn btn-dark col-1 offset-3 edit-btn"
+    >Edit
+  </a>
+</div>
