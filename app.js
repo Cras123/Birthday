@@ -9,7 +9,6 @@ const methodOverride = require("method-override");
 const multer = require("multer");
 const fs = require("fs");
 
-
 // MongoDB Connection URL
 // const MONGO_URL = "mongodb://127.0.0.1:27017/Sampada";
 const dbUrl = process.env.ATLASDB_URL;
@@ -36,7 +35,18 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const fileFilter = (req, file, cb) => {
+  // Accept images only
+  if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+    return cb(new Error("Only image files are allowed!"), false);
+  }
+  cb(null, true);
+};
+
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+});
 
 // Express App Setup
 app.set("view engine", "ejs");
@@ -133,13 +143,17 @@ app.put("/listings/:id", upload.single("image"), async (req, res) => {
     if (req.file) {
       // Remove the old image if it exists and isn't the default image
       if (
+        listing &&
         listing.image &&
-        listing.image.filename &&
         listing.image.filename !== "default-image.jpg"
       ) {
-        fs.unlinkSync(
-          path.join(__dirname, "public/uploads", listing.image.filename)
-        );
+        try {
+          fs.unlinkSync(
+            path.join(__dirname, "public/uploads", listing.image.filename)
+          );
+        } catch (error) {
+          console.error(`Failed to delete image: ${error}`);
+        }
       }
 
       updatedData.image = {
