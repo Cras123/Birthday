@@ -13,16 +13,15 @@ const fs = require("fs");
 // const MONGO_URL = "mongodb://127.0.0.1:27017/Sampada";
 const dbUrl = process.env.ATLASDB_URL;
 
-main()
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.error("Failed to connect to MongoDB", err);
-  });
+// MongoDB connection options for production
+const mongoOptions = {
+  serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
+  socketTimeoutMS: 45000, // Socket timeout
+  family: 4, // Use IPv4, skip trying IPv6
+};
 
 async function main() {
-  await mongoose.connect(dbUrl);
+  await mongoose.connect(dbUrl, mongoOptions);
 }
 
 // Multer Setup for Image Uploads
@@ -62,9 +61,29 @@ app.use((req, res, next) => {
   next();
 });
 
+// Health check route for Render
+app.get("/health", (req, res) => {
+  const healthStatus = {
+    status: "OK",
+    mongodb:
+      mongoose.connection.readyState === 1 ? "Connected" : "Disconnected",
+    timestamp: new Date().toISOString(),
+  };
+  res.status(200).json(healthStatus);
+});
+
 // Routes
 app.get("/", async (req, res) => {
   try {
+    // Check if MongoDB is connected
+    if (mongoose.connection.readyState !== 1) {
+      return res
+        .status(503)
+        .send(
+          "Database connection is not ready. Please try again in a moment."
+        );
+    }
+
     // Fetch featured or latest listings from the database, limit to 3 for the homepage
     const featuredListings = await Listing.find({}).limit(3);
 
@@ -191,7 +210,17 @@ app.delete("/listings/:id", async (req, res) => {
   res.redirect("/listings");
 });
 
-// Start the server
-app.listen(2909, () => {
-  console.log("Server is listening on port 2909");
-});
+// Start the server only after DB connection is established
+const PORT = process.env.PORT || 2909;
+
+main()
+  .then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(PORT, () => {
+      console.log(`Server is listening on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB", err);
+    process.exit(1); // Exit if DB connection fails
+  });
